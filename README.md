@@ -1,4 +1,4 @@
-newznab-plusplus
+nZEDb-plusplus
 ================
 
 This is a theme in development, with intended purpose of becoming the new default gold standard that all themes will eventually live up to.  
@@ -12,9 +12,9 @@ Installation
 Copy the www folder over your current install, replacing files if prompted.
 
 There are changes required to the db located in `dbchanges.sql`  
-Changes to the core newznab+ files are located in `newznab.patch`  
+Changes to the core nZEDb+ files are located in `nZEDb.patch`  
 
-There are references to the newznab lib path in each of the plugins in `www/lib/smarty/plugins/` as well. You may need to correct the full path that is defined in these until they are coded into the newznab core. This is a temporary step... bare with us.
+There are references to the nZEDb lib path in each of the plugins in `www/lib/smarty/plugins/` as well. You may need to correct the full path that is defined in these until they are coded into the nZEDb core. This is a temporary step... bare with us.
 
 Configuration
 -------------
@@ -25,8 +25,8 @@ Stylesheets are located in `www/templates/writhem/styles/`. All colors that coul
 
 If you change your icon for cart, you may want to change the css for the js driven images as well. Located on line 169 and 170. 
 
-    div.icon_cart			{ background-image:url('../images/icons/cartup.png'); }
-    div.icon_cart_clicked	{ background-image:url('../images/icons/cartdown.png'); }
+    div.icon_cart           { background-image:url('../images/icons/cartup.png'); }
+    div.icon_cart_clicked   { background-image:url('../images/icons/cartdown.png'); }
 
 Don't forget to change your menu names in the admin panel as well. 
 
@@ -34,31 +34,31 @@ To utilize the Realtime Status functionality, make sure you define your logs in 
 
     set -e
 
-    export NEWZNAB_PATH="/usr/local/www/newznab/misc/update_scripts"
-    export NEWZNAB_SLEEP_TIME="600" # in seconds
+    export nZEDb_PATH="/usr/local/www/nZEDb/misc/update_scripts"
+    export nZEDb_SLEEP_TIME="600" # in seconds
     LASTOPTIMIZE=`date +%s`
-    LOGFILE="/var/www/newznab/misc/update_scripts/logs/updating.log"
+    LOGFILE="/var/www/nZEDb/misc/update_scripts/logs/updating.log"
 
     while :
 
      do
     CURRTIME=`date +%s`
-    cd ${NEWZNAB_PATH}
-    /usr/bin/php5 ${NEWZNAB_PATH}/update_binaries.php > $LOGFILE
-    /usr/bin/php5 ${NEWZNAB_PATH}/update_releases.php >> $LOGFILE
+    cd ${nZEDb_PATH}
+    /usr/bin/php5 ${nZEDb_PATH}/update_binaries.php > $LOGFILE
+    /usr/bin/php5 ${nZEDb_PATH}/update_releases.php >> $LOGFILE
 
     DIFF=$(($CURRTIME-$LASTOPTIMIZE))
     if [ "$DIFF" -gt 43200 ] || [ "$DIFF" -lt 1 ]
     then
         LASTOPTIMIZE=`date +%s`
-        /usr/bin/php5 ${NEWZNAB_PATH}/optimise_db.php >> $LOGFILE
-        /usr/bin/php5 ${NEWZNAB_PATH}/update_tvschedule.php >> $LOGFILE
-        /usr/bin/php5 ${NEWZNAB_PATH}/update_theaters.php >> $LOGFILE
+        /usr/bin/php5 ${nZEDb_PATH}/optimise_db.php >> $LOGFILE
+        /usr/bin/php5 ${nZEDb_PATH}/update_tvschedule.php >> $LOGFILE
+        /usr/bin/php5 ${nZEDb_PATH}/update_theaters.php >> $LOGFILE
     fi
 
     rm -f $LOGFILE
-    echo "waiting ${NEWZNAB_SLEEP_TIME} seconds..."
-    sleep ${NEWZNAB_SLEEP_TIME}
+    echo "waiting ${nZEDb_SLEEP_TIME} seconds..."
+    sleep ${nZEDb_SLEEP_TIME}
 
     done
 
